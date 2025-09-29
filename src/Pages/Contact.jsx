@@ -15,29 +15,39 @@ export default function Contact() {
                 Contact form - {email}
             </h1>
 
-            <form>
-                <div>
+            <form
+            className="flex flex-col w-full gap-[10px]"
+            >
+                <div
+                className="flex flex-col gap-[4px]"
+                >
                     <label>
                         Full Name
                     </label>
                     <input type="text" placeholder="Enter your full-name" value={fullName} onChange={(e) => setFullName(e.target.value)}/>
                 </div>
 
-                <div>
+                <div
+                className="flex flex-col gap-[4px]"
+                >
                     <label>
                         Email
                     </label>
                     <input placeholder="Enter your email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                 </div>
 
-                <div>
+                <div
+                className="flex flex-col gap-[4px]"
+                >
                     <label>
                         Phone number
                     </label>
                     <input type="tel" placeholder="Enter your phone-number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                 </div>
 
-                <div>
+                <div
+                className="flex flex-col gap-[4px]"
+                >
                     <label>
                         Message
                     </label>
