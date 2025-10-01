@@ -1,7 +1,6 @@
 
 import { Link, useLocation } from "react-router-dom"
 
-
 export default function Navbar() {
     const location = useLocation()
     return(
@@ -25,6 +24,14 @@ export default function Navbar() {
                 </li>
             </Link>
 
+            <Link to={'/users'}>
+                <li
+                className={`${location.pathname === '/users' ? 'text-green-600 font-bold text-[40px]' : 'text-white text-[20px] font-light'} `}
+                >
+                    View users
+                </li>
+            </Link>
+
                 <Link to={'/contact'}>
                 <li>
                     Contact
@@ -36,6 +43,14 @@ export default function Navbar() {
                 className={`${location.pathname === '/signup' ? 'text-green-600 font-bold text-[40px]' : 'text-white text-[20px] font-light'} `}
                 >
                     Signup
+                </li>
+            </Link>
+
+            <Link to={'/login'}>
+                <li
+                className={`${location.pathname === '/login' ? 'text-green-600 font-bold text-[40px]' : 'text-white text-[20px] font-light'} `}
+                >
+                Login
                 </li>
             </Link>
             </ul>

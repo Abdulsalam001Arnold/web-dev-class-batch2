@@ -5,6 +5,9 @@ import About from "./Pages/About"
 import Navbar from "./components/Navbar"
 import Contact from "./Pages/Contact"
 import Signup from "./Pages/Signup"
+import Login from "./Pages/Login"
+import Users from "./Pages/Users"
+import User from "./Pages/User"
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
               <Route path="/about" element={<About/>}/>
               <Route path="/contact" element={<Contact/>}/>
               <Route path="/signup" element={<Signup/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/users" element={<Users/>}/>
+              <Route path="/user/:id" element={<User/>}/>
             </Routes>
         </BrowserRouter>
     </>
