@@ -10,25 +10,19 @@ export default function Users() {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        const token = localStorage.getItem("token")
-        console.log(`My auth token is this: ${token}`)
         const fetchData = async () => {
             try {
                 setLoading(true)
-                const response = await protectedFetch("https://nodeclass-batch2.vercel.app/all-users")
+                const data = await protectedFetch("https://nodeclass-batch2.vercel.app/all-users")
 
-                if(!response.ok) throw new Error("API Failed")
 
-                    const data = await response.json()
-                    console.log(data)
-                    setUsers(data)
-
-                    if (!token) {
-                        return res.status(401).json({ message: 'Not authorized, no token' });
-                      }
+                    console.log("Fetched data:", data);
+                    setUsers(data);
 
             } catch (err) {
-                
+                if(err instanceof Error) {
+                    console.error(err.message)
+                }
             }finally{
                 setLoading(false)
             }
