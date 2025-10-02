@@ -2,15 +2,16 @@
 import { useState, useEffect } from "react";
 import Loader from "../components/Loader";
 import { Link } from "react-router-dom";
+import defaultAvatar from '../assets/images/default-avatar-removebg-preview.png'
 
 export default function Users() {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        const token = localStorage.getItem("token")
+        console.log(`My auth token is this: ${token}`)
         const fetchData = async () => {
-    const token = localStorage.getItem("token")
-    console.log(`My auth token is this: ${token}`)
             try {
                 setLoading(true)
                 const response = await fetch("https://nodeclass-batch2.vercel.app/all-users", {
@@ -24,6 +25,10 @@ export default function Users() {
                     const data = await response.json()
                     console.log(data)
                     setUsers(data)
+
+                    if (!token) {
+                        return res.status(401).json({ message: 'Not authorized, no token' });
+                      }
 
             } catch (err) {
                 
@@ -57,6 +62,16 @@ export default function Users() {
                         <section
                         className="mb-[2rem] rounded-[20px] border flex gap-[10px] border-gray-300 p-5 justify-between"
                         >
+
+                        <div
+                        className="w-[10rem] mr-6"
+                        >
+                            <img
+                                src={user.profile.profilePicture ? user.profile.profilePicture : defaultAvatar
+                                }
+                                className="rounded-[50%] object-cover"
+                            />
+                        </div>
                         <div
                         className="flex flex-col"
                         >
