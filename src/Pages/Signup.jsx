@@ -117,6 +117,8 @@ export default function Signup() {
                     Add your profile picture
                     </label>
 
+                    {profilePicture ? <p>Selected File: {profilePicture.name}</p> : null}
+
                     <input type="file" id="upload" accept="image/*" onChange={fileChange} className="hidden"/>
 
                 

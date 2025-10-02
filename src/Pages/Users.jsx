@@ -4,12 +4,13 @@ import Loader from "../components/Loader";
 import { Link } from "react-router-dom";
 
 export default function Users() {
-    const token = localStorage.getItem("token")
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
+    const token = localStorage.getItem("token")
+    console.log(`My auth token is this: ${token}`)
             try {
                 setLoading(true)
                 const response = await fetch("https://nodeclass-batch2.vercel.app/all-users", {
