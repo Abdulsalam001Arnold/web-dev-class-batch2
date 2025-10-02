@@ -1,6 +1,7 @@
 
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { protectedFetch } from "../utils/helper";
 
 export default function User() {
     const { id } = useParams()
@@ -9,11 +10,7 @@ export default function User() {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const response = await fetch(`https://nodeclass-batch2.vercel.app/get-single/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+            const response = await protectedFetch(`https://nodeclass-batch2.vercel.app/get-single/${id}`)
 
             if(!response.ok) throw new Error("API Failed")
 

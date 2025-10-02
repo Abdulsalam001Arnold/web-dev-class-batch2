@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Loader from "../components/Loader";
 import { Link } from "react-router-dom";
 import defaultAvatar from '../assets/images/default-avatar-removebg-preview.png'
+import { protectedFetch } from "../utils/helper";
 
 export default function Users() {
     const [users, setUsers] = useState([])
@@ -14,11 +15,7 @@ export default function Users() {
         const fetchData = async () => {
             try {
                 setLoading(true)
-                const response = await fetch("https://nodeclass-batch2.vercel.app/all-users", {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
+                const response = await protectedFetch("https://nodeclass-batch2.vercel.app/all-users")
 
                 if(!response.ok) throw new Error("API Failed")
 
