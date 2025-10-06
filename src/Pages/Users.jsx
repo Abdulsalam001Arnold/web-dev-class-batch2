@@ -1,13 +1,14 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Loader from "../components/Loader";
 import { Link } from "react-router-dom";
 import defaultAvatar from '../assets/images/default-avatar-removebg-preview.png'
 import { protectedFetch } from "../utils/helper";
-
+import { UserContext } from "../context/UserContext";
 export default function Users() {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
+    const { token, user, logout } = useContext(UserContext)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,6 +32,27 @@ export default function Users() {
         fetchData()
     }, [])
 
+    const handleDelete = async(userId) => {
+        try {
+            const data = await protectedFetch(`https://nodeclass-batch2.vercel.app/delete/${userId}`, {
+                method: "DELETE"
+            })
+            if(data) {
+                console.log(data)
+                setUsers(users.filter(user => user._id !== userId))
+            }
+
+        } catch (err) {
+            if(err instanceof Error) {
+                return(
+                    <p>
+                        {err.message}
+                    </p>
+                )
+            }
+        }
+    }
+
     if(loading) {
         return <Loader/>
     }
@@ -40,8 +62,14 @@ export default function Users() {
             <h1
             className="text-xl font-bold"
             >
-                All Users
+                All Users (Welcome {user.username})
             </h1>
+
+            <button
+            onClick={logout}
+            >
+                Logout
+            </button>
 
             <div
             className="mt-[4rem]"
@@ -74,7 +102,10 @@ export default function Users() {
 
                             <p>email: {user.email}</p>
                         </div>
-
+                        
+                        <div
+                        className="flex flex-col gap-[5px]"
+                        >
                         <Link
                         to={`/user/${user._id}`}
                         >
@@ -84,6 +115,15 @@ export default function Users() {
                             View Profile
                         </button>
                         </Link>
+                        
+                        <button
+                        className="bg-red-500 p-3 rounded-[20px] text-center cursor-pointer"
+                        onClick={() => handleDelete(user._id)}
+                        >
+                            Delete User
+                        </button>
+
+                        </div>
                         </section>
                       ))}
                     </div>

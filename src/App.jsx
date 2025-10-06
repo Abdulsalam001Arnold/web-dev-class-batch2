@@ -8,11 +8,14 @@ import Signup from "./Pages/Signup"
 import Login from "./Pages/Login"
 import Users from "./Pages/Users"
 import User from "./Pages/User"
+import ProtectedRoute from "./components/ProtectedRoute"
+import { UserProvider } from "./context/UserContext"
 
 function App() {
   return (
     <>
         <BrowserRouter>
+      <UserProvider>
         <Navbar/>
             <Routes>
               <Route path="/" element={<Home/>}/>
@@ -20,9 +23,18 @@ function App() {
               <Route path="/contact" element={<Contact/>}/>
               <Route path="/signup" element={<Signup/>}/>
               <Route path="/login" element={<Login/>}/>
-              <Route path="/users" element={<Users/>}/>
-              <Route path="/user/:id" element={<User/>}/>
+              <Route path="/users" element={
+              <ProtectedRoute>
+              <Users/>
+              </ProtectedRoute>
+              }/>
+              <Route path="/user/:id" element={
+              <ProtectedRoute>
+              <User/>
+              </ProtectedRoute>
+              }/>
             </Routes>
+      </UserProvider>
         </BrowserRouter>
     </>
   )

@@ -1,7 +1,8 @@
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export default function Signup() {
     const navigate = useNavigate()
@@ -16,6 +17,8 @@ export default function Signup() {
     const [loading, setLoading] = useState(false)
 
     const [profilePicture, setProfilePicture] = useState(null)
+
+    const { login } = useContext(UserContext)
 
     //Text inputs
     const handleChange = (e) => {
@@ -58,6 +61,7 @@ export default function Signup() {
                     toast.success("Signed up succesfully")
                     const data = await response.json()
                     console.log(data)
+                    login(data.token, data.populatedUser)
                     localStorage.setItem("token", data.token)
                     navigate("/")
                 }

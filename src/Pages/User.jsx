@@ -12,11 +12,11 @@ export default function User() {
         const fetchUser = async () => {
             const response = await protectedFetch(`https://nodeclass-batch2.vercel.app/get-single/${id}`)
 
-            if(!response.ok) throw new Error("API Failed")
-
-                const data = await response.json()
-                console.log(data)
-                setUserDetails(data)
+            // if(!response.ok) throw new Error("API Failed")
+            //     console.log(response)
+                console.log(response)
+                setUserDetails(response)
+                console.log("This is user details:", userDetails)
         }
 
         fetchUser()
